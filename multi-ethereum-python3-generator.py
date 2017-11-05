@@ -3,6 +3,7 @@ from ethereum import utils
 import multiprocessing
 import subprocess
 import time
+import uuid
 
 t = time.time()
 outputNumber = 1000
@@ -22,7 +23,8 @@ if __name__ == '__main__':
     ranger = range(outputNumber)
     P = multiprocessing.Pool(20)
     p = P.map(ethereumGen, ranger)
-    f = open('file','w')
+    filex = uuid.uuid4().hex[1:6]
+    f = open(filex,'a+')
     for x in range(len(p)):
         try:
             f.write(p[x][0] + ',' + p[x][1] + '\n')
@@ -31,5 +33,5 @@ if __name__ == '__main__':
     f.close()
     tt = time.time()
     resultTime = tt - t
-    print('time taken: ' + str(resultTime))
-    print(str(outputNumber / resultTime) + '/sec') 
+    print('time taken: ' + str(resultTime), flush=True)
+    print(str(outputNumber / resultTime) + '/sec', flush=True`) 
